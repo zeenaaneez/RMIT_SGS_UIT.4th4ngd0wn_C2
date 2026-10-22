@@ -1,0 +1,26 @@
+{
+  "name": "research-share",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack --hostname 127.0.0.1",
+    "build": "next build --webpack",
+    "start": "next start --hostname 127.0.0.1",
+    "init": "bash scripts/init-tidecloak.sh",
+    "test:plan-c": "node scripts/test-plan-c.mjs"
+  },
+  "dependencies": {
+    "@tidecloak/js": "0.14.41",
+    "@tidecloak/nextjs": "0.14.40",
+    "@tidecloak/react": "0.14.33",
+    "jose": "^6.0.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.0.0"
+  }
+}

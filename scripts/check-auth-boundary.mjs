@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+const base = process.env.REAL_APP_URL || 'http://localhost:3001';
+const state = await fetch(base + '/api/simulation');
+assert.equal(state.status, 404, 'Simulation must be disabled in TideCloak mode');
+const login = await fetch(base + '/api/simulation', { method: 'POST', headers: { origin: base, 'content-type': 'application/json' }, body: JSON.stringify({ action: 'login', identity: 'approver-a' }) });
+assert.equal(login.status, 404, 'Demo sign-in must be disabled');
+const doc = await fetch(base + '/api/document', { headers: { cookie: 'research_share_demo=fake', authorization: 'Bearer fake' } });
+assert.equal(doc.status, 401, 'Real mode must not accept demo cookies or fake tokens');
+const page = await fetch(base);
+assert.equal(page.status, 200);
+const html = await page.text();
+assert.ok(html.includes('Đăng nhập chưa sẵn sàng.'));
+assert.ok(!html.includes('SYNTHETIC RESEARCH'));
+console.log('PASS: real mode disables simulation, rejects demo cookies/fake tokens, and shows setup pending without a valid adapter.');
